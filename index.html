@@ -10,9 +10,9 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f3f2f1;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 .topbar{background:#0078d4;color:#fff;padding:8px 16px;display:flex;align-items:center;gap:10px;min-height:44px;flex-shrink:0}
 .topbar-title{font-size:14px;font-weight:600}
-.topbar-sub{font-size:11px;opacity:0.8}
+.topbar-sub{font-size:11px;opacity:.8}
 .shell{display:flex;flex:1;overflow:hidden}
-.sidenav{width:220px;min-width:220px;background:#1f1f1f;overflow-y:auto;display:flex;flex-direction:column}
+.sidenav{width:220px;min-width:220px;background:#1f1f1f;overflow-y:auto}
 .nav-top{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;color:#ccc;font-size:13px;font-weight:600;border-left:3px solid transparent}
 .nav-top:hover{background:#2d2d2d;color:#fff}
 .nav-top.active{background:#0078d420;color:#4fc3f7;border-left-color:#0078d4}
@@ -20,7 +20,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-chevron.open{transform:rotate(90deg)}
 .nav-sub{overflow:hidden;max-height:0;transition:max-height .25s ease}
 .nav-sub.open{max-height:600px}
-.nav-sub-label{font-size:10px;color:#666;padding:6px 14px 2px 14px;text-transform:uppercase;letter-spacing:.6px;font-weight:500}
+.nav-sub-label{font-size:10px;color:#666;padding:6px 14px 2px 28px;text-transform:uppercase;letter-spacing:.6px;font-weight:500}
 .nav-item{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 28px;cursor:pointer;color:#aaa;font-size:12px;border-left:3px solid transparent}
 .nav-item:hover{background:#2d2d2d;color:#fff}
 .nav-item.active{background:#0078d430;color:#4fc3f7;border-left-color:#0078d4}
@@ -29,7 +29,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .main-header{padding:8px 14px;border-bottom:1px solid #edebe9;background:#faf9f8;display:flex;align-items:center;gap:8px;flex-shrink:0}
 .breadcrumb{font-size:12px;color:#605e5c}
 .breadcrumb span{color:#323130;font-weight:500}
-.toolbar{padding:6px 10px;border-bottom:1px solid #edebe9;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.toolbar{padding:6px 10px;border-bottom:1px solid #edebe9;display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
 .tbtn{padding:5px 10px;font-size:12px;border:1px solid #8a8886;border-radius:2px;cursor:pointer;background:#fff;color:#323130;display:inline-flex;align-items:center;gap:5px}
 .tbtn:hover{background:#f3f2f1}
 .tbtn-primary{background:#0078d4;color:#fff;border-color:#0078d4}
@@ -46,10 +46,8 @@ tr:hover td{background:#f3f2f1}
 .b-err{background:#fde7e9;color:#a80000}
 .b-warn{background:#fff4ce;color:#7a4f00}
 .b-info{background:#cce4f6;color:#004578}
-.b-enc{background:#ede7f6;color:#4a148c}
 .b-gray{background:#f3f2f1;color:#605e5c}
 .b-plat{background:#e1dfdd;color:#323130}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .spinner{display:inline-block;width:10px;height:10px;border:1.5px solid #0078d4;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .console-wrap{height:155px;min-height:155px;background:#1e1e1e;border-top:2px solid #333;display:flex;flex-direction:column;flex-shrink:0}
@@ -58,9 +56,11 @@ tr:hover td{background:#f3f2f1}
 .console-body{flex:1;overflow-y:auto;padding:6px 10px;font-size:11px;font-family:'Consolas','Courier New',monospace}
 .log-line{margin-bottom:2px;white-space:pre-wrap;word-break:break-all}
 .log-ts{color:#569cd6}.log-ok{color:#4ec9b0}.log-warn{color:#ce9178}.log-err{color:#f48771}.log-info{color:#dcdcaa}.log-w{color:#d4d4d4}
-.count-label{margin-left:auto;font-size:11px;color:#605e5c}
 .status-chip{display:inline-flex;align-items:center;gap:6px;background:#ffffff20;padding:3px 10px;border-radius:12px;font-size:11px}
 .sdot{width:8px;height:8px;border-radius:50%}
+.meta-bar{font-size:11px;color:#605e5c;background:#faf9f8;padding:4px 14px;border-bottom:1px solid #edebe9;flex-shrink:0}
+.count-label{margin-left:auto;font-size:11px;color:#605e5c}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:#605e5c;gap:10px}
 </style>
 </head>
 <body>
@@ -68,359 +68,267 @@ tr:hover td{background:#f3f2f1}
   <i class="ti ti-device-desktop" style="font-size:20px"></i>
   <div>
     <div class="topbar-title">Intune Device Health Console</div>
-    <div class="topbar-sub">Microsoft Intune · Graph API · contoso.onmicrosoft.com</div>
+    <div class="topbar-sub" id="tenantLabel">Loading data from GitHub Actions...</div>
   </div>
   <div style="margin-left:auto;display:flex;gap:10px;align-items:center">
     <div class="status-chip">
       <span class="sdot" id="sdot" style="background:#666"></span>
-      <span id="stext">Not connected</span>
+      <span id="stext">Loading...</span>
     </div>
-    <button class="tbtn" style="background:#ffffff20;border-color:#ffffff50;color:#fff" onclick="connectGraph()">
-      <i class="ti ti-plug"></i> Connect to Graph
+    <button class="tbtn" style="background:#ffffff20;border-color:#ffffff50;color:#fff" onclick="reloadData()">
+      <i class="ti ti-refresh"></i> Refresh
     </button>
   </div>
 </div>
 <div class="shell">
-  <!-- SIDENAV -->
   <div class="sidenav">
-    <!-- DEVICES -->
-    <div class="nav-top active" id="navtop-devices" onclick="toggleSection('devices')">
+    <div class="nav-top active" onclick="toggleSection('devices')">
       <i class="ti ti-devices nav-icon"></i> Devices
       <i class="ti ti-chevron-right nav-chevron open" id="chev-devices"></i>
     </div>
     <div class="nav-sub open" id="sub-devices">
       <div class="nav-sub-label">By platform</div>
-      <div class="nav-item" id="nav-windows" onclick="setView('windows')"><i class="ti ti-brand-windows nav-icon"></i> Windows</div>
-      <div class="nav-item" id="nav-apple" onclick="setView('apple')"><i class="ti ti-brand-apple nav-icon"></i> Apple mobile</div>
-      <div class="nav-item" id="nav-macos" onclick="setView('macos')"><i class="ti ti-apple nav-icon"></i> macOS</div>
-      <div class="nav-item" id="nav-android" onclick="setView('android')"><i class="ti ti-brand-android nav-icon"></i> Android</div>
-      <div class="nav-item" id="nav-linux" onclick="setView('linux')"><i class="ti ti-brand-ubuntu nav-icon"></i> Linux</div>
+      <div class="nav-item" id="nav-windows"       onclick="setView('windows')"><i class="ti ti-brand-windows nav-icon"></i> Windows</div>
+      <div class="nav-item" id="nav-apple"         onclick="setView('apple')"><i class="ti ti-brand-apple nav-icon"></i> Apple mobile</div>
+      <div class="nav-item" id="nav-macos"         onclick="setView('macos')"><i class="ti ti-apple nav-icon"></i> macOS</div>
+      <div class="nav-item" id="nav-android"       onclick="setView('android')"><i class="ti ti-brand-android nav-icon"></i> Android</div>
+      <div class="nav-item" id="nav-linux"         onclick="setView('linux')"><i class="ti ti-brand-ubuntu nav-icon"></i> Linux</div>
       <div class="nav-sub-label">Device onboarding</div>
-      <div class="nav-item" id="nav-enrollment" onclick="setView('enrollment')"><i class="ti ti-user-check nav-icon"></i> Enrollment</div>
+      <div class="nav-item" id="nav-enrollment"    onclick="setView('enrollment')"><i class="ti ti-user-check nav-icon"></i> Enrollment</div>
       <div class="nav-sub-label">Manage devices</div>
       <div class="nav-item active" id="nav-configuration" onclick="setView('configuration')"><i class="ti ti-settings nav-icon"></i> Configuration</div>
-      <div class="nav-item" id="nav-compliance" onclick="setView('compliance')"><i class="ti ti-shield-check nav-icon"></i> Compliance</div>
+      <div class="nav-item" id="nav-compliance"    onclick="setView('compliance')"><i class="ti ti-shield-check nav-icon"></i> Compliance</div>
     </div>
-    <!-- APPS -->
-    <div class="nav-top" id="navtop-apps" onclick="toggleSection('apps')">
+    <div class="nav-top" onclick="toggleSection('apps')">
       <i class="ti ti-apps nav-icon"></i> Apps
       <i class="ti ti-chevron-right nav-chevron" id="chev-apps"></i>
     </div>
     <div class="nav-sub" id="sub-apps">
-      <div class="nav-item" id="nav-allApps" onclick="setView('allApps')"><i class="ti ti-list nav-icon"></i> All apps</div>
-      <div class="nav-item" id="nav-winApps" onclick="setView('winApps')"><i class="ti ti-brand-windows nav-icon"></i> Windows apps</div>
-      <div class="nav-item" id="nav-iosApps" onclick="setView('iosApps')"><i class="ti ti-brand-apple nav-icon"></i> iOS / iPadOS apps</div>
-      <div class="nav-item" id="nav-androidApps" onclick="setView('androidApps')"><i class="ti ti-brand-android nav-icon"></i> Android apps</div>
+      <div class="nav-item" id="nav-allApps"      onclick="setView('allApps')"><i class="ti ti-list nav-icon"></i> All apps</div>
+      <div class="nav-item" id="nav-winApps"      onclick="setView('winApps')"><i class="ti ti-brand-windows nav-icon"></i> Windows apps</div>
+      <div class="nav-item" id="nav-iosApps"      onclick="setView('iosApps')"><i class="ti ti-brand-apple nav-icon"></i> iOS / iPadOS apps</div>
+      <div class="nav-item" id="nav-androidApps"  onclick="setView('androidApps')"><i class="ti ti-brand-android nav-icon"></i> Android apps</div>
     </div>
-    <!-- ENDPOINT SECURITY -->
-    <div class="nav-top" id="navtop-security" onclick="toggleSection('security')">
+    <div class="nav-top" onclick="toggleSection('security')">
       <i class="ti ti-shield-lock nav-icon"></i> Endpoint security
       <i class="ti ti-chevron-right nav-chevron" id="chev-security"></i>
     </div>
     <div class="nav-sub" id="sub-security">
-      <div class="nav-item" id="nav-bitlocker" onclick="setView('bitlocker')"><i class="ti ti-lock nav-icon"></i> Disk encryption</div>
-      <div class="nav-item" id="nav-firewall" onclick="setView('firewall')"><i class="ti ti-flame nav-icon"></i> Firewall</div>
-      <div class="nav-item" id="nav-antivirus" onclick="setView('antivirus')"><i class="ti ti-bug nav-icon"></i> Antivirus</div>
-      <div class="nav-item" id="nav-autopatch" onclick="setView('autopatch')"><i class="ti ti-refresh nav-icon"></i> Windows Autopatch</div>
+      <div class="nav-item" id="nav-bitlocker"    onclick="setView('bitlocker')"><i class="ti ti-lock nav-icon"></i> Disk encryption</div>
+      <div class="nav-item" id="nav-firewall"     onclick="setView('firewall')"><i class="ti ti-flame nav-icon"></i> Firewall</div>
+      <div class="nav-item" id="nav-antivirus"    onclick="setView('antivirus')"><i class="ti ti-bug nav-icon"></i> Antivirus</div>
+      <div class="nav-item" id="nav-autopatch"    onclick="setView('autopatch')"><i class="ti ti-refresh nav-icon"></i> Windows Autopatch</div>
     </div>
   </div>
-
-  <!-- MAIN -->
   <div class="main">
     <div class="main-header">
       <span class="breadcrumb" id="breadcrumb">Devices &rsaquo; <span>Configuration</span></span>
       <div style="margin-left:auto;display:flex;gap:6px">
-        <button class="tbtn" onclick="runCurrentView()"><i class="ti ti-refresh"></i> Refresh</button>
-        <button class="tbtn tbtn-primary" onclick="runAll()"><i class="ti ti-player-play"></i> Run all</button>
+        <button class="tbtn" onclick="reloadData()"><i class="ti ti-refresh"></i> Refresh data</button>
+        <button class="tbtn tbtn-primary" onclick="runAll()"><i class="ti ti-player-play"></i> Show all</button>
         <button class="tbtn" onclick="exportJSON()"><i class="ti ti-download"></i> Export JSON</button>
       </div>
     </div>
+    <div class="meta-bar" id="metaBar">Source: GitHub Actions → Graph API · Last fetch: —</div>
     <div class="toolbar">
-      <button class="tbtn" id="f-all" onclick="filterView('all')" style="border-color:#0078d4;color:#0078d4"><i class="ti ti-list"></i> All</button>
+      <button class="tbtn" id="f-all"    onclick="filterView('all')"    style="border-color:#0078d4;color:#0078d4"><i class="ti ti-list"></i> All</button>
       <button class="tbtn" id="f-issues" onclick="filterView('issues')"><i class="ti ti-alert-triangle"></i> Issues only</button>
       <span class="count-label" id="countLabel">—</span>
     </div>
     <div class="table-area" id="tableWrap">
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#605e5c;gap:10px">
-        <i class="ti ti-device-desktop" style="font-size:40px;opacity:.3"></i>
-        <p style="font-size:13px">Select a section or click Connect</p>
-      </div>
+      <div class="empty"><i class="ti ti-loader" style="font-size:36px;opacity:.3"></i><p>Loading from data.json...</p></div>
     </div>
     <div class="console-wrap">
       <div class="console-header">
         <i class="ti ti-terminal" style="font-size:14px;color:#888"></i>
-        <span class="console-title">Output console — Graph API log</span>
+        <span class="console-title">Output console — GitHub Actions log</span>
         <button class="tbtn" onclick="clearLog()" style="margin-left:auto;background:transparent;border-color:#444;color:#888;font-size:10px;padding:2px 6px">Clear</button>
       </div>
       <div class="console-body" id="console"></div>
     </div>
   </div>
 </div>
-
 <script>
-const CON=document.getElementById('console');
-let currentView='configuration',filterMode='all';
-function ts(){const n=new Date();return n.getFullYear()+'-'+S(n.getMonth()+1)+'-'+S(n.getDate())+' '+S(n.getHours())+':'+S(n.getMinutes())+':'+S(n.getSeconds());}
+var INTUNEDATA = {};
+var currentView = 'configuration';
+var filterMode = 'all';
+
+var CON = document.getElementById('console');
+function ts(){var n=new Date();return n.getFullYear()+'-'+S(n.getMonth()+1)+'-'+S(n.getDate())+' '+S(n.getHours())+':'+S(n.getMinutes())+':'+S(n.getSeconds());}
 function S(n){return String(n).padStart(2,'0');}
-function log(m,t='w'){const d=document.createElement('div');d.className='log-line';d.innerHTML=`<span class="log-ts">${ts()}</span>  <span class="log-${t}">${m}</span>`;CON.appendChild(d);CON.scrollTop=CON.scrollHeight;}
+function log(m,t){t=t||'w';var d=document.createElement('div');d.className='log-line';d.innerHTML='<span class="log-ts">'+ts()+'</span>  <span class="log-'+t+'">'+m+'</span>';CON.appendChild(d);CON.scrollTop=CON.scrollHeight;}
 function clearLog(){CON.innerHTML='';}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 
-const DATA={
-  windows:[
-    {name:'DESKTOP-GEH2F3',user:'amit.sharma@contoso.com',os:'Windows 11 23H2',compliance:'Compliant',lastSync:'2 min ago',enrolled:'2025-09-01'},
-    {name:'DESKTOP-HC2F3CB',user:'larry.k@contoso.com',os:'Windows 11 22H2',compliance:'Compliant',lastSync:'15 min ago',enrolled:'2025-08-14'},
-    {name:'LAPTOP-SARA01',user:'sara.d@contoso.com',os:'Windows 11 24H2',compliance:'Non-Compliant',lastSync:'1 hr ago',enrolled:'2025-07-20'},
-    {name:'DESKTOP-AHMED1',user:'ahmed.m@contoso.com',os:'Windows 10 22H2',compliance:'Grace Period',lastSync:'3 hr ago',enrolled:'2024-12-01'},
-    {name:'KIOSK-LOBBY-01',user:'shared',os:'Windows 11 23H2',compliance:'Compliant',lastSync:'5 min ago',enrolled:'2025-10-10'},
-  ],
-  apple:[
-    {name:'iPhone-Amit-01',user:'amit.sharma@contoso.com',os:'iOS 17.4.1',compliance:'Compliant',lastSync:'10 min ago',enrolled:'2025-09-05'},
-    {name:'iPad-Sara-02',user:'sara.d@contoso.com',os:'iPadOS 17.3',compliance:'Compliant',lastSync:'1 hr ago',enrolled:'2025-07-22'},
-    {name:'iPhone-Ahmed-03',user:'ahmed.m@contoso.com',os:'iOS 16.7',compliance:'Non-Compliant',lastSync:'6 hr ago',enrolled:'2025-01-15'},
-  ],
-  macos:[
-    {name:'MacBook-Dev-01',user:'dev@contoso.com',os:'macOS 14.4 Sonoma',compliance:'Compliant',lastSync:'30 min ago',enrolled:'2025-06-01'},
-    {name:'MacBook-Mgr-02',user:'mgr@contoso.com',os:'macOS 13.6 Ventura',compliance:'Non-Compliant',lastSync:'2 hr ago',enrolled:'2025-03-10'},
-  ],
-  android:[
-    {name:'Samsung-S24-01',user:'field.agent@contoso.com',os:'Android 14',compliance:'Compliant',lastSync:'20 min ago',enrolled:'2025-11-01'},
-    {name:'Pixel-8-02',user:'ops@contoso.com',os:'Android 14',compliance:'Compliant',lastSync:'45 min ago',enrolled:'2025-10-15'},
-    {name:'OnePlus-11-03',user:'support@contoso.com',os:'Android 13',compliance:'Non-Compliant',lastSync:'1 day ago',enrolled:'2024-08-01'},
-  ],
-  linux:[
-    {name:'UBUNTU-DEV-01',user:'devops@contoso.com',os:'Ubuntu 22.04 LTS',compliance:'Compliant',lastSync:'1 hr ago',enrolled:'2025-04-01'},
-  ],
-  enrollment:[
-    {name:'Autopilot — Corporate Devices',platform:'Windows',method:'Windows Autopilot',assigned:'All Corp Devices',status:'Active',devices:142},
-    {name:'ABM Enrollment — iOS/iPadOS',platform:'Apple mobile',method:'ADE via ABM',assigned:'iOS Users',status:'Active',devices:38},
-    {name:'Android Enterprise — COPE',platform:'Android',method:'Zero-touch',assigned:'Field Agents',status:'Active',devices:24},
-    {name:'macOS ADE',platform:'macOS',method:'ADE via ABM',assigned:'Mac Users',status:'Active',devices:12},
-    {name:'Linux — Script Enrollment',platform:'Linux',method:'Manual/Script',assigned:'DevOps',status:'Active',devices:3},
-    {name:'User-driven BYOD',platform:'Windows',method:'AAD Join + MDM',assigned:'BYOD Users',status:'Inactive',devices:0},
-  ],
-  configuration:[
-    {name:'WIN — Endpoint Security Baseline',platform:'Windows',type:'Security baseline',state:'Success',assigned:'All Devices',lastReport:'10 min ago'},
-    {name:'WIN — BitLocker Silent Encryption',platform:'Windows',type:'Endpoint protection',state:'Success',assigned:'All Win11 Devices',lastReport:'10 min ago'},
-    {name:'WIN — Defender Antivirus Policy',platform:'Windows',type:'Antivirus',state:'Success',assigned:'All Devices',lastReport:'12 min ago'},
-    {name:'WIN — Edge Browser Settings',platform:'Windows',type:'Administrative template',state:'Conflict',assigned:'All Devices',lastReport:'8 min ago'},
-    {name:'WIN — VPN GlobalProtect',platform:'Windows',type:'VPN',state:'Error',assigned:'GEHC Users',lastReport:'30 min ago'},
-    {name:'iOS — Passcode Policy',platform:'Apple mobile',type:'Device restrictions',state:'Success',assigned:'iOS Users',lastReport:'20 min ago'},
-    {name:'Android — Work Profile',platform:'Android',type:'Work profile',state:'Success',assigned:'Field Agents',lastReport:'15 min ago'},
-    {name:'macOS — Gatekeeper Policy',platform:'macOS',type:'Endpoint protection',state:'Success',assigned:'Mac Users',lastReport:'1 hr ago'},
-  ],
-  compliance:[
-    {policy:'WIN — Corporate Baseline',setting:'BitLocker Required',platform:'Windows',state:'Compliant',evaluated:'2 min ago'},
-    {policy:'WIN — Corporate Baseline',setting:'Firewall Enabled',platform:'Windows',state:'Compliant',evaluated:'2 min ago'},
-    {policy:'WIN — Corporate Baseline',setting:'Defender Antivirus',platform:'Windows',state:'Compliant',evaluated:'2 min ago'},
-    {policy:'WIN — Corporate Baseline',setting:'OS Min Version 19045',platform:'Windows',state:'Compliant',evaluated:'2 min ago'},
-    {policy:'WIN — Corporate Baseline',setting:'Password Required',platform:'Windows',state:'Non-Compliant',evaluated:'2 min ago'},
-    {policy:'iOS — MDM Baseline',setting:'Passcode Required',platform:'Apple mobile',state:'Compliant',evaluated:'10 min ago'},
-    {policy:'iOS — MDM Baseline',setting:'Jailbreak Detection',platform:'Apple mobile',state:'Compliant',evaluated:'10 min ago'},
-    {policy:'Android — Work Profile',setting:'Screen Lock Required',platform:'Android',state:'Non-Compliant',evaluated:'20 min ago'},
-    {policy:'macOS — Baseline',setting:'FileVault Required',platform:'macOS',state:'Compliant',evaluated:'1 hr ago'},
-  ],
-  allApps:[
-    {name:'7-Zip 26.01',platform:'Windows',type:'Win32 App',state:'Installed',ver:'26.01'},
-    {name:'Google Chrome 148',platform:'Windows',type:'Win32 App',state:'Installing',ver:'148.0'},
-    {name:'Notepad++ 8.9.5',platform:'Windows',type:'Win32 App',state:'Pending',ver:'8.9.5'},
-    {name:'Signal 8.9.1',platform:'Windows',type:'Win32 App (PSADT)',state:'Failed',ver:'8.9.1'},
-    {name:'Microsoft Remote Help 5.1',platform:'Windows',type:'Company Portal',state:'Installed',ver:'5.1.1998'},
-    {name:'Microsoft Authenticator',platform:'Apple mobile',type:'iOS App Store',state:'Installed',ver:'6.7.1'},
-    {name:'Intune Company Portal',platform:'Apple mobile',type:'iOS App Store',state:'Installed',ver:'5.2.0'},
-    {name:'Microsoft Teams',platform:'Android',type:'Managed Google Play',state:'Installed',ver:'1.0.0.2024'},
-    {name:'Outlook',platform:'macOS',type:'macOS App',state:'Installed',ver:'16.83'},
-  ],
-  winApps:[
-    {name:'7-Zip 26.01',platform:'Windows',type:'Win32 App',state:'Installed',ver:'26.01'},
-    {name:'Google Chrome 148',platform:'Windows',type:'Win32 App',state:'Installing',ver:'148.0'},
-    {name:'Notepad++ 8.9.5',platform:'Windows',type:'Win32 App',state:'Pending',ver:'8.9.5'},
-    {name:'Signal 8.9.1',platform:'Windows',type:'Win32 App (PSADT)',state:'Failed',ver:'8.9.1'},
-    {name:'Microsoft Remote Help 5.1',platform:'Windows',type:'Company Portal',state:'Installed',ver:'5.1.1998'},
-  ],
-  iosApps:[
-    {name:'Microsoft Authenticator',platform:'iOS/iPadOS',type:'iOS App Store',state:'Installed',ver:'6.7.1'},
-    {name:'Intune Company Portal',platform:'iOS/iPadOS',type:'iOS App Store',state:'Installed',ver:'5.2.0'},
-    {name:'Microsoft Outlook',platform:'iOS/iPadOS',type:'iOS App Store',state:'Installed',ver:'4.2316.0'},
-  ],
-  androidApps:[
-    {name:'Microsoft Teams',platform:'Android',type:'Managed Google Play',state:'Installed',ver:'1.0.0.2024'},
-    {name:'Intune Company Portal',platform:'Android',type:'Managed Google Play',state:'Installed',ver:'5.0.5484'},
-  ],
-  bitlocker:[
-    {device:'DESKTOP-GEH2F3',drive:'C: (OS)',method:'XTS-AES 256',state:'Fully Encrypted',key:'Escrowed to AAD',tpm:'Yes'},
-    {device:'DESKTOP-GEH2F3',drive:'D: (Data)',method:'XTS-AES 128',state:'Fully Encrypted',key:'Escrowed to AAD',tpm:'Yes'},
-    {device:'DESKTOP-HC2F3CB',drive:'C: (OS)',method:'XTS-AES 256',state:'Fully Encrypted',key:'Escrowed to AAD',tpm:'Yes'},
-    {device:'LAPTOP-SARA01',drive:'C: (OS)',method:'XTS-AES 256',state:'Encryption in Progress',key:'Pending escrow',tpm:'Yes'},
-    {device:'DESKTOP-AHMED1',drive:'C: (OS)',method:'—',state:'Not Encrypted',key:'—',tpm:'No'},
-    {device:'MacBook-Dev-01',drive:'/ (System)',method:'FileVault 2',state:'Fully Encrypted',key:'Escrowed to AAD',tpm:'T2 Chip'},
-  ],
-  firewall:[
-    {device:'DESKTOP-GEH2F3',platform:'Windows',profile:'Domain',state:'Enabled',policy:'WIN Firewall Baseline',lastSync:'2 min ago'},
-    {device:'DESKTOP-HC2F3CB',platform:'Windows',profile:'Domain',state:'Enabled',policy:'WIN Firewall Baseline',lastSync:'5 min ago'},
-    {device:'LAPTOP-SARA01',platform:'Windows',profile:'Public',state:'Enabled',policy:'WIN Firewall Baseline',lastSync:'1 hr ago'},
-    {device:'DESKTOP-AHMED1',platform:'Windows',profile:'Domain',state:'Disabled',policy:'WIN Firewall Baseline',lastSync:'3 hr ago'},
-  ],
-  antivirus:[
-    {device:'DESKTOP-GEH2F3',platform:'Windows',engine:'Defender',status:'Active',sigDate:'2026-05-25',lastScan:'1 hr ago',threats:'0'},
-    {device:'DESKTOP-HC2F3CB',platform:'Windows',engine:'Defender',status:'Active',sigDate:'2026-05-25',lastScan:'2 hr ago',threats:'0'},
-    {device:'LAPTOP-SARA01',platform:'Windows',engine:'Defender',status:'Active',sigDate:'2026-05-24',lastScan:'8 hr ago',threats:'1'},
-    {device:'DESKTOP-AHMED1',platform:'Windows',engine:'Defender',status:'Disabled',sigDate:'2026-05-10',lastScan:'2 days ago',threats:'—'},
-  ],
-  autopatch:[
-    {ring:'Test Ring',type:'Quality Update',status:'Completed',kb:'KB5037853',date:'2026-05-01',compliance:'On time'},
-    {ring:'First Ring',type:'Quality Update',status:'Completed',kb:'KB5037853',date:'2026-05-03',compliance:'On time'},
-    {ring:'Fast Ring',type:'Quality Update',status:'In Progress',kb:'KB5037853',date:'2026-05-20',compliance:'Pending'},
-    {ring:'Broad Ring',type:'Feature Update',status:'Scheduled',kb:'24H2',date:'2026-06-01',compliance:'Pending'},
-    {ring:'First Ring',type:'Driver Update',status:'Paused',kb:'Intel ME FW',date:'—',compliance:'Deferred'},
-  ],
+var BC={
+  windows:'Devices > By platform > Windows',apple:'Devices > By platform > Apple mobile',
+  macos:'Devices > By platform > macOS',android:'Devices > By platform > Android',
+  linux:'Devices > By platform > Linux',enrollment:'Devices > Device onboarding > Enrollment',
+  configuration:'Devices > Manage devices > Configuration',compliance:'Devices > Manage devices > Compliance',
+  allApps:'Apps > All apps',winApps:'Apps > Windows apps',iosApps:'Apps > iOS/iPadOS apps',androidApps:'Apps > Android apps',
+  bitlocker:'Endpoint security > Disk encryption',firewall:'Endpoint security > Firewall',
+  antivirus:'Endpoint security > Antivirus',autopatch:'Endpoint security > Windows Autopatch'
 };
 
-const BC={
-  windows:'Devices › By platform › Windows',apple:'Devices › By platform › Apple mobile',
-  macos:'Devices › By platform › macOS',android:'Devices › By platform › Android',
-  linux:'Devices › By platform › Linux',enrollment:'Devices › Device onboarding › Enrollment',
-  configuration:'Devices › Manage devices › Configuration',compliance:'Devices › Manage devices › Compliance',
-  allApps:'Apps › All apps',winApps:'Apps › Windows apps',iosApps:'Apps › iOS/iPadOS apps',androidApps:'Apps › Android apps',
-  bitlocker:'Endpoint security › Disk encryption (BitLocker)',firewall:'Endpoint security › Firewall',
-  antivirus:'Endpoint security › Antivirus',autopatch:'Endpoint security › Windows Autopatch',
-};
-
-const HEADS={
+var HEADS={
   windows:['Device name','User','OS version','Compliance','Last sync','Enrolled'],
   apple:['Device name','User','OS version','Compliance','Last sync','Enrolled'],
   macos:['Device name','User','OS version','Compliance','Last sync','Enrolled'],
   android:['Device name','User','OS version','Compliance','Last sync','Enrolled'],
   linux:['Device name','User','OS version','Compliance','Last sync','Enrolled'],
-  enrollment:['Profile name','Platform','Method','Assigned to','Status','Device count'],
+  enrollment:['Profile name','Platform','Method','Assigned to','Status','Devices'],
   configuration:['Profile name','Platform','Type','State','Assigned to','Last report'],
   compliance:['Policy','Setting','Platform','State','Evaluated'],
   allApps:['App name','Platform','Type','State','Version'],
   winApps:['App name','Platform','Type','State','Version'],
   iosApps:['App name','Platform','Type','State','Version'],
   androidApps:['App name','Platform','Type','State','Version'],
-  bitlocker:['Device','Drive','Encryption method','State','Recovery key','TPM'],
+  bitlocker:['Device','Drive','Method','State','Recovery key','TPM'],
   firewall:['Device','Platform','Profile','State','Policy','Last sync'],
   antivirus:['Device','Platform','Engine','Status','Signatures','Last scan','Threats'],
-  autopatch:['Ring','Update type','Status','KB / Build','Scheduled','Compliance'],
+  autopatch:['Ring','Update type','Status','KB / Build','Scheduled','Compliance']
 };
 
-const ISSUE=['Non-Compliant','Error','Failed','Conflict','Not Encrypted','Disabled','Inactive','Pending escrow'];
+var ISSUE_STATES=['Non-Compliant','Error','Failed','Conflict','Not Encrypted','Disabled','Inactive','Pending escrow'];
 
 function badge(s){
-  if(['Compliant','Active','Enabled','Installed','Fully Encrypted','Success','Completed','On time'].includes(s)) return `<span class="badge b-ok">${s}</span>`;
-  if(['Non-Compliant','Error','Failed','Not Encrypted','Disabled'].includes(s)) return `<span class="badge b-err">${s}</span>`;
-  if(['Grace Period','Conflict','Encryption in Progress','Paused','Pending escrow'].includes(s)) return `<span class="badge b-warn">${s}</span>`;
-  if(['Installing','In Progress'].includes(s)) return `<span class="badge b-info"><span class="spinner"></span> ${s}</span>`;
-  if(['Inactive'].includes(s)) return `<span class="badge b-err">${s}</span>`;
-  return `<span class="badge b-gray">${s}</span>`;
+  if(!s) return '<span class="badge b-gray">--</span>';
+  var ok=['Compliant','Active','Enabled','Installed','Fully Encrypted','Success','Completed','On time','Published','published'];
+  var err=['Non-Compliant','Error','Failed','Not Encrypted','Disabled','Inactive'];
+  var warn=['Grace Period','Conflict','Encryption in Progress','Paused','Pending escrow'];
+  var spin=['Installing','In Progress'];
+  if(ok.indexOf(s)>=0) return '<span class="badge b-ok">'+s+'</span>';
+  if(err.indexOf(s)>=0) return '<span class="badge b-err">'+s+'</span>';
+  if(warn.indexOf(s)>=0) return '<span class="badge b-warn">'+s+'</span>';
+  if(spin.indexOf(s)>=0) return '<span class="badge b-info"><span class="spinner"></span> '+s+'</span>';
+  return '<span class="badge b-gray">'+s+'</span>';
 }
-function platBadge(p){return `<span class="badge b-plat">${p}</span>`;}
+function platBadge(p){return '<span class="badge b-plat">'+(p||'--')+'</span>';}
 
 function getRows(view,data){
-  if(['windows','apple','macos','android','linux'].includes(view))
-    return data.map(d=>`<tr><td><strong>${d.name}</strong></td><td style="color:#605e5c">${d.user}</td><td>${d.os}</td><td>${badge(d.compliance)}</td><td style="color:#605e5c">${d.lastSync}</td><td style="color:#605e5c">${d.enrolled}</td></tr>`).join('');
-  if(view==='enrollment')
-    return data.map(d=>`<tr><td><strong>${d.name}</strong></td><td>${platBadge(d.platform)}</td><td>${d.method}</td><td style="color:#605e5c">${d.assigned}</td><td>${badge(d.status)}</td><td style="font-weight:600">${d.devices}</td></tr>`).join('');
-  if(view==='configuration')
-    return data.map(d=>`<tr><td><strong>${d.name}</strong></td><td>${platBadge(d.platform)}</td><td style="color:#605e5c">${d.type}</td><td>${badge(d.state)}</td><td>${d.assigned}</td><td style="color:#605e5c">${d.lastReport}</td></tr>`).join('');
-  if(view==='compliance')
-    return data.map(d=>`<tr><td style="color:#605e5c">${d.policy}</td><td><strong>${d.setting}</strong></td><td>${platBadge(d.platform)}</td><td>${badge(d.state)}</td><td style="color:#605e5c">${d.evaluated}</td></tr>`).join('');
-  if(['allApps','winApps','iosApps','androidApps'].includes(view))
-    return data.map(d=>`<tr><td><strong>${d.name}</strong></td><td>${platBadge(d.platform)}</td><td style="color:#605e5c">${d.type}</td><td>${badge(d.state)}</td><td style="color:#605e5c">${d.ver}</td></tr>`).join('');
-  if(view==='bitlocker')
-    return data.map(d=>`<tr><td><strong>${d.device}</strong></td><td>${d.drive}</td><td style="color:#605e5c">${d.method}</td><td>${badge(d.state)}</td><td style="color:#605e5c">${d.key}</td><td>${d.tpm}</td></tr>`).join('');
-  if(view==='firewall')
-    return data.map(d=>`<tr><td><strong>${d.device}</strong></td><td>${platBadge(d.platform)}</td><td>${d.profile}</td><td>${badge(d.state)}</td><td style="color:#605e5c">${d.policy}</td><td style="color:#605e5c">${d.lastSync}</td></tr>`).join('');
-  if(view==='antivirus')
-    return data.map(d=>`<tr><td><strong>${d.device}</strong></td><td>${platBadge(d.platform)}</td><td>${d.engine}</td><td>${badge(d.status)}</td><td style="color:#605e5c">${d.sigDate}</td><td style="color:#605e5c">${d.lastScan}</td><td style="font-weight:600;color:${parseInt(d.threats)>0?'#a80000':'#107c10'}">${d.threats}</td></tr>`).join('');
-  if(view==='autopatch')
-    return data.map(d=>`<tr><td><strong>${d.ring}</strong></td><td style="color:#605e5c">${d.type}</td><td>${badge(d.status)}</td><td style="font-weight:600">${d.kb}</td><td style="color:#605e5c">${d.date}</td><td style="color:#605e5c">${d.compliance}</td></tr>`).join('');
-  return '';
+  if(!data||data.length===0) return '<tr><td colspan="10" style="text-align:center;color:#605e5c;padding:24px">No data available — trigger GitHub Action to fetch from Graph API</td></tr>';
+  var rows='';
+  if(['windows','apple','macos','android','linux'].indexOf(view)>=0){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.name||'--')+'</strong></td><td style="color:#605e5c;font-size:11px">'+(d.user||'--')+'</td><td>'+(d.os||'--')+'</td><td>'+badge(d.compliance)+'</td><td style="color:#605e5c">'+(d.lastSync||'--')+'</td><td style="color:#605e5c">'+(d.enrolled||'--')+'</td></tr>';});
+  } else if(view==='enrollment'){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.name||'--')+'</strong></td><td>'+platBadge(d.platform)+'</td><td style="font-size:11px">'+(d.method||'--')+'</td><td style="color:#605e5c;font-size:11px">'+(d.assigned||'--')+'</td><td>'+badge(d.status)+'</td><td style="font-weight:600">'+(d.devices!=null?d.devices:'--')+'</td></tr>';});
+  } else if(view==='configuration'){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.name||'--')+'</strong></td><td>'+platBadge(d.platform)+'</td><td style="color:#605e5c;font-size:11px">'+(d.type||'--')+'</td><td>'+badge(d.state)+'</td><td style="font-size:11px">'+(d.assigned||'--')+'</td><td style="color:#605e5c">'+(d.lastReport||'--')+'</td></tr>';});
+  } else if(view==='compliance'){
+    data.forEach(function(d){rows+='<tr><td style="color:#605e5c;font-size:11px">'+(d.policy||'--')+'</td><td><strong>'+(d.setting||'--')+'</strong></td><td>'+platBadge(d.platform)+'</td><td>'+badge(d.state)+'</td><td style="color:#605e5c">'+(d.evaluated||'--')+'</td></tr>';});
+  } else if(['allApps','winApps','iosApps','androidApps'].indexOf(view)>=0){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.name||'--')+'</strong></td><td>'+platBadge(d.platform)+'</td><td style="color:#605e5c;font-size:11px">'+(d.type||'--')+'</td><td>'+badge(d.state)+'</td><td style="color:#605e5c">'+(d.ver||'--')+'</td></tr>';});
+  } else if(view==='bitlocker'){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.device||'--')+'</strong></td><td>'+(d.drive||'--')+'</td><td style="color:#605e5c;font-size:11px">'+(d.method||'--')+'</td><td>'+badge(d.state)+'</td><td style="color:#605e5c;font-size:11px">'+(d.key||'--')+'</td><td>'+(d.tpm||'--')+'</td></tr>';});
+  } else if(view==='firewall'){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.device||'--')+'</strong></td><td>'+platBadge(d.platform)+'</td><td>'+(d.profile||'--')+'</td><td>'+badge(d.state)+'</td><td style="color:#605e5c;font-size:11px">'+(d.policy||'--')+'</td><td style="color:#605e5c">'+(d.lastSync||'--')+'</td></tr>';});
+  } else if(view==='antivirus'){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.device||'--')+'</strong></td><td>'+platBadge(d.platform)+'</td><td>'+(d.engine||'--')+'</td><td>'+badge(d.status)+'</td><td style="color:#605e5c">'+(d.sigDate||'--')+'</td><td style="color:#605e5c">'+(d.lastScan||'--')+'</td><td style="font-weight:600;color:'+(parseInt(d.threats)>0?'#a80000':'#107c10')+'">'+(d.threats!=null?d.threats:'--')+'</td></tr>';});
+  } else if(view==='autopatch'){
+    data.forEach(function(d){rows+='<tr><td><strong>'+(d.ring||'--')+'</strong></td><td style="color:#605e5c;font-size:11px">'+(d.type||'--')+'</td><td>'+badge(d.status)+'</td><td style="font-weight:600">'+(d.kb||'--')+'</td><td style="color:#605e5c">'+(d.date||'--')+'</td><td style="color:#605e5c">'+(d.compliance||'--')+'</td></tr>';});
+  }
+  return rows;
 }
 
 function renderTable(head,rows){
-  document.getElementById('tableWrap').innerHTML=`<table><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
-  const n=rows.split('<tr>').length-1;
+  document.getElementById('tableWrap').innerHTML='<table><thead><tr>'+head.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>';
+  var n=rows.split('<tr>').length-1;
   document.getElementById('countLabel').textContent=n+' item'+(n!==1?'s':'');
 }
 
 function filterData(data){
   if(filterMode==='all') return data;
-  return data.filter(d=>ISSUE.some(s=>Object.values(d).join(' ').includes(s)));
+  return (data||[]).filter(function(d){
+    return ISSUE_STATES.some(function(s){return Object.values(d).join(' ').indexOf(s)>=0;});
+  });
 }
 
-async function setView(view){
+function setView(view){
   currentView=view;
-  document.querySelectorAll('.nav-item,.nav-top').forEach(n=>n.classList.remove('active'));
-  const el=document.getElementById('nav-'+view);
+  document.querySelectorAll('.nav-item,.nav-top').forEach(function(n){n.classList.remove('active');});
+  var el=document.getElementById('nav-'+view);
   if(el) el.classList.add('active');
-  const bc=BC[view]||view;
-  const parts=bc.split(' › ');
+  var bc=BC[view]||view;
+  var parts=bc.split(' > ');
   document.getElementById('breadcrumb').innerHTML=parts.slice(0,-1).join(' &rsaquo; ')+' &rsaquo; <span>'+parts[parts.length-1]+'</span>';
-  await runCurrentView();
-}
-
-async function runCurrentView(){
-  const data=DATA[currentView];
-  if(!data){renderTable(['No data'],[]);return;}
-  log(`GET https://graph.microsoft.com/beta/deviceManagement/${currentView}`,'info');
-  await sleep(280);
-  const filtered=filterData(data);
-  log(`200 OK — ${filtered.length} records returned.`,'ok');
-  renderTable(HEADS[currentView]||['Data'],getRows(currentView,filtered));
+  var raw=INTUNEDATA[view]||[];
+  var filtered=filterData(raw);
+  log('View: '+view+' — '+filtered.length+' records (filter: '+filterMode+')','info');
+  renderTable(HEADS[view]||['Data'],getRows(view,filtered));
 }
 
 function filterView(mode){
   filterMode=mode;
-  ['all','issues'].forEach(m=>{
-    const b=document.getElementById('f-'+m);
+  ['all','issues'].forEach(function(m){
+    var b=document.getElementById('f-'+m);
     b.style.borderColor=m===mode?(m==='all'?'#0078d4':'#a80000'):'';
     b.style.color=m===mode?(m==='all'?'#0078d4':'#a80000'):'';
   });
-  log(mode==='issues'?'Filter: showing issues only.':'Filter: showing all records.', mode==='issues'?'warn':'w');
-  const data=DATA[currentView]||[];
-  renderTable(HEADS[currentView]||['Data'],getRows(currentView,filterData(data)));
-  document.getElementById('countLabel').textContent=filterData(data).length+' items';
-}
-
-async function connectGraph(){
-  log('Authenticating via MSAL — client credentials flow...','info');
-  await sleep(500);
-  log('Token acquired. Scope: DeviceManagementApps.Read.All, DeviceManagementConfiguration.Read.All, BitlockerKey.Read.All','ok');
-  await sleep(300);
-  log('Graph API connected: https://graph.microsoft.com/beta','ok');
-  document.getElementById('sdot').style.background='#4ec9b0';
-  document.getElementById('stext').textContent='Connected';
-  await setView('configuration');
-}
-
-async function runAll(){
-  log('--- Starting full tenant evaluation across all sections ---','info');
-  const views=['windows','apple','macos','android','linux','enrollment','configuration','compliance','allApps','bitlocker','firewall','antivirus','autopatch'];
-  for(const v of views){await setView(v);await sleep(300);}
-  log('--- Full evaluation complete. Review Issues Only filter for anomalies. ---','ok');
-}
-
-function exportJSON(){
-  const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='intune-device-health-export.json';
-  a.click();
-  log('Exported intune-device-health-export.json','ok');
+  log(mode==='issues'?'Filter: issues only.':'Filter: all records.',mode==='issues'?'warn':'w');
+  setView(currentView);
 }
 
 function toggleSection(sec){
-  const sub=document.getElementById('sub-'+sec);
-  const chev=document.getElementById('chev-'+sec);
-  const open=sub.classList.contains('open');
+  var sub=document.getElementById('sub-'+sec);
+  var chev=document.getElementById('chev-'+sec);
+  var open=sub.classList.contains('open');
   sub.classList.toggle('open',!open);
   chev.classList.toggle('open',!open);
 }
 
-setView('configuration');
-log('Intune Device Health Console ready. Click Connect to Graph API or select a section.','w');
+function loadData(){
+  log('Fetching data/data.json from GitHub Actions output...','info');
+  fetch('data/data.json?t='+Date.now())
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(json){
+      INTUNEDATA=json;
+      var meta=json.meta||{};
+      var fetched=meta.fetched_at||'unknown';
+      document.getElementById('tenantLabel').textContent='Tenant: '+(meta.tenant_id||'--')+' · Graph API · GitHub Actions';
+      document.getElementById('metaBar').textContent='Source: GitHub Actions → Microsoft Graph API  ·  Last fetch: '+fetched;
+      document.getElementById('sdot').style.background='#4ec9b0';
+      document.getElementById('stext').textContent='Live data';
+      log('data.json loaded successfully.','ok');
+      log('Last Graph API fetch: '+fetched,'ok');
+      var keys=['windows','apple','macos','android','linux','configuration','compliance','allApps','bitlocker'];
+      keys.forEach(function(k){
+        var arr=INTUNEDATA[k]||[];
+        log('  '+k.padEnd(20,' ')+arr.length+' records',arr.length>0?'ok':'warn');
+      });
+      setView(currentView);
+    })
+    .catch(function(e){
+      log('Failed to load data.json: '+e.message,'err');
+      log('Make sure GitHub Actions has run at least once.','warn');
+      document.getElementById('sdot').style.background='#a80000';
+      document.getElementById('stext').textContent='No data yet';
+      document.getElementById('tableWrap').innerHTML='<div class="empty"><i class="ti ti-alert-triangle" style="font-size:36px;color:#a80000;opacity:.6"></i><p style="color:#a80000">data.json not found — go to Actions tab and run the workflow first.</p></div>';
+    });
+}
+
+function reloadData(){clearLog();loadData();}
+
+function runAll(){
+  var views=['windows','apple','macos','android','linux','enrollment','configuration','compliance','allApps','bitlocker','firewall','antivirus','autopatch'];
+  var i=0;
+  function next(){if(i<views.length){setView(views[i++]);setTimeout(next,150);} else {log('All sections rendered.','ok');}}
+  next();
+}
+
+function exportJSON(){
+  var blob=new Blob([JSON.stringify(INTUNEDATA,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='intune-export-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  log('Exported JSON.','ok');
+}
+
+log('Intune Device Health Console starting...','w');
+log('Reading data/data.json — populated by GitHub Actions every 2 hours','info');
+loadData();
 </script>
 </body>
 </html>
