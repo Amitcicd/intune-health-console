@@ -130,32 +130,40 @@ def fetch_enrollment_profiles(token):
     profiles = []
 
     # Windows Autopilot profiles
-    ap = graph_get(token, "deviceManagement/windowsAutopilotDeploymentProfiles",
-                   params={"$select": "displayName,assignedDeviceCount"})
-    for p in ap:
-        profiles.append({
-            "name":     p.get("displayName", ""),
-            "platform": "Windows",
-            "method":   "Windows Autopilot",
-            "assigned": "Assigned devices",
-            "status":   "Active",
-            "devices":  p.get("assignedDeviceCount", 0),
-        })
+    try:
+        ap = graph_get(token, "deviceManagement/windowsAutopilotDeploymentProfiles",
+                       params={"$select": "displayName,lastModifiedDateTime"})
+        for p in ap:
+            profiles.append({
+                "name":     p.get("displayName", ""),
+                "platform": "Windows",
+                "method":   "Windows Autopilot",
+                "assigned": "Assigned devices",
+                "status":   "Active",
+                "devices":  0,
+            })
+        log(f"  Autopilot profiles: {len(ap)}")
+    except Exception as e:
+        log(f"  Autopilot profiles skipped: {e}", "WARN")
 
     # DEP / ADE profiles (Apple)
-    dep = graph_get(token, "deviceManagement/depOnboardingSettings",
-                    params={"$select": "appleIdentifier,enrolledDeviceCount"})
-    for p in dep:
-        profiles.append({
-            "name":     f"ADE — {p.get('appleIdentifier', 'Apple')}",
-            "platform": "Apple mobile / macOS",
-            "method":   "ADE via ABM",
-            "assigned": "ABM scope",
-            "status":   "Active",
-            "devices":  p.get("enrolledDeviceCount", 0),
-        })
+    try:
+        dep = graph_get(token, "deviceManagement/depOnboardingSettings",
+                        params={"$select": "appleIdentifier,enrolledDeviceCount"})
+        for p in dep:
+            profiles.append({
+                "name":     f"ADE — {p.get('appleIdentifier', 'Apple')}",
+                "platform": "Apple mobile / macOS",
+                "method":   "ADE via ABM",
+                "assigned": "ABM scope",
+                "status":   "Active",
+                "devices":  p.get("enrolledDeviceCount", 0),
+            })
+        log(f"  DEP/ADE profiles: {len(dep)}")
+    except Exception as e:
+        log(f"  DEP profiles skipped: {e}", "WARN")
 
-    log(f"  → {len(profiles)} enrollment profiles.")
+    log(f"  → {len(profiles)} enrollment profiles total.")
     return profiles
 
 
