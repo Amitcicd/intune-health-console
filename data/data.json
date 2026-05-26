@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-05-26T08:25:21.370071+00:00",
+    "fetched_at": "2026-05-26T08:34:30.794949+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "Just now",
+      "lastSync": "10 min ago",
       "enrolled": "2026-05-09"
     }
   ],
@@ -49,7 +49,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "13 min ago"
+      "lastReport": "22 min ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -57,7 +57,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "13 min ago"
+      "lastReport": "22 min ago"
     }
   ],
   "compliance": [],
