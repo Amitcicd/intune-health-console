@@ -10,7 +10,6 @@ import os
 import sys
 from datetime import datetime, timezone
 
-# ── Auth from GitHub Secrets ──────────────────────────────────────────────────
 TENANT_ID     = os.environ["INTUNE_TENANT_ID"]
 CLIENT_ID     = os.environ["INTUNE_CLIENT_ID"]
 CLIENT_SECRET = os.environ["INTUNE_CLIENT_SECRET"]
@@ -23,7 +22,6 @@ def log(msg, level="INFO"):
     print(f"[{ts}] [{level}] {msg}", flush=True)
 
 
-# ── Token acquisition ─────────────────────────────────────────────────────────
 def get_token():
     log("Acquiring token via MSAL client credentials...")
     app = msal.ConfidentialClientApplication(
@@ -40,7 +38,6 @@ def get_token():
     return result["access_token"]
 
 
-# ── Graph GET with auto-pagination ────────────────────────────────────────────
 def graph_get(token, endpoint, params=None):
     headers = {"Authorization": f"Bearer {token}"}
     url = f"{GRAPH_BASE}/{endpoint}"
@@ -52,47 +49,40 @@ def graph_get(token, endpoint, params=None):
         items = body.get("value", [])
         all_items.extend(items if isinstance(items, list) else [body])
         url = body.get("@odata.nextLink")
-        params = None                       # only send params on first page
+        params = None
     return all_items
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
 def fmt_date(iso):
-    """Trim ISO datetime to YYYY-MM-DD, or return empty string."""
     if not iso:
         return ""
     return iso[:10]
 
 
 def fmt_sync(iso):
-    """Return relative-style label from ISO datetime."""
     if not iso:
         return "Never"
     try:
         dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
         diff = datetime.now(timezone.utc) - dt
         mins = int(diff.total_seconds() / 60)
-        if mins < 2:
-            return "Just now"
-        if mins < 60:
-            return f"{mins} min ago"
+        if mins < 2:   return "Just now"
+        if mins < 60:  return f"{mins} min ago"
         hrs = mins // 60
-        if hrs < 24:
-            return f"{hrs} hr ago"
+        if hrs < 24:   return f"{hrs} hr ago"
         return f"{hrs // 24} day(s) ago"
     except Exception:
         return iso[:10]
 
 
 def compliance_label(state):
-    """Map Graph complianceState to display label."""
     mapping = {
-        "compliant":    "Compliant",
-        "noncompliant": "Non-Compliant",
-        "ingraceperiod":"Grace Period",
-        "error":        "Error",
-        "unknown":      "Unknown",
-        "configmanager":"Co-managed",
+        "compliant":     "Compliant",
+        "noncompliant":  "Non-Compliant",
+        "ingraceperiod": "Grace Period",
+        "error":         "Error",
+        "unknown":       "Unknown",
+        "configmanager": "Co-managed",
     }
     return mapping.get((state or "").lower(), state or "Unknown")
 
@@ -101,35 +91,38 @@ def compliance_label(state):
 
 def fetch_devices_by_platform(token, os_filter):
     log(f"Fetching devices — platform: {os_filter}")
-    raw = graph_get(
-        token,
-        "deviceManagement/managedDevices",
-        params={
-            "$filter": f"operatingSystem eq '{os_filter}'",
-            "$select": "deviceName,userPrincipalName,osVersion,complianceState,"
-                       "lastSyncDateTime,enrolledDateTime,id",
-            "$top": "999",
-        },
-    )
-    log(f"  → {len(raw)} devices returned.")
-    return [
-        {
-            "name":       d.get("deviceName", ""),
-            "user":       d.get("userPrincipalName", ""),
-            "os":         d.get("osVersion", ""),
-            "compliance": compliance_label(d.get("complianceState")),
-            "lastSync":   fmt_sync(d.get("lastSyncDateTime")),
-            "enrolled":   fmt_date(d.get("enrolledDateTime")),
-        }
-        for d in raw
-    ]
+    try:
+        raw = graph_get(
+            token,
+            "deviceManagement/managedDevices",
+            params={
+                "$filter": f"operatingSystem eq '{os_filter}'",
+                "$select": "deviceName,userPrincipalName,osVersion,complianceState,"
+                           "lastSyncDateTime,enrolledDateTime",
+                "$top": "999",
+            },
+        )
+        log(f"  → {len(raw)} devices returned.")
+        return [
+            {
+                "name":       d.get("deviceName", ""),
+                "user":       d.get("userPrincipalName", ""),
+                "os":         d.get("osVersion", ""),
+                "compliance": compliance_label(d.get("complianceState")),
+                "lastSync":   fmt_sync(d.get("lastSyncDateTime")),
+                "enrolled":   fmt_date(d.get("enrolledDateTime")),
+            }
+            for d in raw
+        ]
+    except Exception as e:
+        log(f"  Devices ({os_filter}) skipped: {e}", "WARN")
+        return []
 
 
 def fetch_enrollment_profiles(token):
     log("Fetching enrollment profiles...")
     profiles = []
 
-    # Windows Autopilot profiles
     try:
         ap = graph_get(token, "deviceManagement/windowsAutopilotDeploymentProfiles",
                        params={"$select": "displayName,lastModifiedDateTime"})
@@ -146,10 +139,9 @@ def fetch_enrollment_profiles(token):
     except Exception as e:
         log(f"  Autopilot profiles skipped: {e}", "WARN")
 
-    # DEP / ADE profiles (Apple)
     try:
         dep = graph_get(token, "deviceManagement/depOnboardingSettings",
-                        params={"$select": "appleIdentifier,enrolledDeviceCount"})
+                        params={"$select": "appleIdentifier"})
         for p in dep:
             profiles.append({
                 "name":     f"ADE — {p.get('appleIdentifier', 'Apple')}",
@@ -157,7 +149,7 @@ def fetch_enrollment_profiles(token):
                 "method":   "ADE via ABM",
                 "assigned": "ABM scope",
                 "status":   "Active",
-                "devices":  p.get("enrolledDeviceCount", 0),
+                "devices":  0,
             })
         log(f"  DEP/ADE profiles: {len(dep)}")
     except Exception as e:
@@ -169,74 +161,86 @@ def fetch_enrollment_profiles(token):
 
 def fetch_configuration_profiles(token):
     log("Fetching configuration profiles...")
-    raw = graph_get(
-        token,
-        "deviceManagement/deviceConfigurations",
-        params={"$select": "displayName,platformApplicability,deviceSettingStateSummaries,"
-                            "lastModifiedDateTime,id",
-                "$top": "999"},
-    )
-    results = []
-    for p in raw:
-        platform = p.get("@odata.type", "").replace(
-            "#microsoft.graph.", "").replace("Configuration", "").capitalize()
-        results.append({
-            "name":       p.get("displayName", ""),
-            "platform":   platform or "Windows",
-            "type":       "Device configuration",
-            "state":      "Success",          # detailed per-device state needs separate call
-            "assigned":   "See Intune portal",
-            "lastReport": fmt_sync(p.get("lastModifiedDateTime")),
-        })
-    log(f"  → {len(results)} config profiles.")
-    return results
+    try:
+        raw = graph_get(
+            token,
+            "deviceManagement/deviceConfigurations",
+            params={"$select": "displayName,lastModifiedDateTime,id", "$top": "999"},
+        )
+        results = []
+        for p in raw:
+            otype    = p.get("@odata.type", "")
+            platform = otype.replace("#microsoft.graph.", "").replace("Configuration", "").capitalize()
+            results.append({
+                "name":       p.get("displayName", ""),
+                "platform":   platform or "Windows",
+                "type":       "Device configuration",
+                "state":      "Success",
+                "assigned":   "See Intune portal",
+                "lastReport": fmt_sync(p.get("lastModifiedDateTime")),
+            })
+        log(f"  → {len(results)} config profiles.")
+        return results
+    except Exception as e:
+        log(f"  Config profiles skipped: {e}", "WARN")
+        return []
 
 
 def fetch_compliance_policies(token):
     log("Fetching compliance policies...")
-    policies = graph_get(
-        token,
-        "deviceManagement/deviceCompliancePolicies",
-        params={"$select": "displayName,scheduledActionsForRule,lastModifiedDateTime,"
-                            "version,id",
-                "$top": "999"},
-    )
-    results = []
-    for p in policies:
-        results.append({
-            "policy":    p.get("displayName", ""),
-            "setting":   "Policy-level compliance",
-            "platform":  "Windows",           # refine per @odata.type if needed
-            "state":     "Compliant",
-            "evaluated": fmt_sync(p.get("lastModifiedDateTime")),
-        })
-    log(f"  → {len(results)} compliance policies.")
-    return results
+    try:
+        policies = graph_get(
+            token,
+            "deviceManagement/deviceCompliancePolicies",
+            params={"$select": "displayName,lastModifiedDateTime,id", "$top": "999"},
+        )
+        results = []
+        for p in policies:
+            otype    = p.get("@odata.type", "")
+            platform = "iOS"     if "ios"     in otype.lower() else \
+                       "Android" if "android" in otype.lower() else \
+                       "macOS"   if "mac"     in otype.lower() else "Windows"
+            results.append({
+                "policy":    p.get("displayName", ""),
+                "setting":   "Policy-level compliance",
+                "platform":  platform,
+                "state":     "Compliant",
+                "evaluated": fmt_sync(p.get("lastModifiedDateTime")),
+            })
+        log(f"  → {len(results)} compliance policies.")
+        return results
+    except Exception as e:
+        log(f"  Compliance policies skipped: {e}", "WARN")
+        return []
 
 
 def fetch_apps(token, platform_filter=None):
     log(f"Fetching apps (platform filter: {platform_filter or 'all'})...")
-    raw = graph_get(
-        token,
-        "deviceAppManagement/mobileApps",
-        params={"$select": "displayName,publisher,appAvailability,publishingState,"
-                            "lastModifiedDateTime,@odata.type",
-                "$top": "999"},
-    )
+    try:
+        raw = graph_get(
+            token,
+            "deviceAppManagement/mobileApps",
+            params={"$select": "displayName,publishingState,lastModifiedDateTime",
+                    "$top": "999"},
+        )
+    except Exception as e:
+        log(f"  Apps fetch skipped: {e}", "WARN")
+        return []
 
     PLATFORM_MAP = {
-        "microsoftStoreForBusiness":  "Windows",
-        "win32LobApp":                "Windows",
-        "windowsMicrosoftEdgeApp":    "Windows",
-        "officeSuiteApp":             "Windows",
-        "iosStoreApp":                "Apple mobile",
-        "iosLobApp":                  "Apple mobile",
-        "managedIOSStoreApp":         "Apple mobile",
-        "androidStoreApp":            "Android",
-        "androidLobApp":              "Android",
-        "managedAndroidStoreApp":     "Android",
-        "macOSDmgApp":                "macOS",
-        "macOSLobApp":                "macOS",
+        "microsoftStoreForBusiness": "Windows",
+        "win32LobApp":               "Windows",
+        "windowsMicrosoftEdgeApp":   "Windows",
+        "officeSuiteApp":            "Windows",
+        "windowsUniversalAppX":      "Windows",
+        "iosStoreApp":               "Apple mobile",
+        "iosLobApp":                 "Apple mobile",
+        "managedIOSStoreApp":        "Apple mobile",
+        "androidStoreApp":           "Android",
+        "androidLobApp":             "Android",
+        "managedAndroidStoreApp":    "Android",
+        "macOSDmgApp":               "macOS",
+        "macOSLobApp":               "macOS",
     }
 
     results = []
@@ -245,13 +249,13 @@ def fetch_apps(token, platform_filter=None):
         plat  = PLATFORM_MAP.get(otype, "Windows")
         if platform_filter and plat != platform_filter:
             continue
-        state = "Installed" if a.get("publishingState") == "published" else "Pending"
+        state = "Published" if a.get("publishingState") == "published" else "Pending"
         results.append({
             "name":     a.get("displayName", ""),
             "platform": plat,
             "type":     otype or "Win32 App",
             "state":    state,
-            "ver":      a.get("version", "—") or "—",
+            "ver":      fmt_date(a.get("lastModifiedDateTime", "")) or "—",
         })
 
     log(f"  → {len(results)} apps.")
@@ -268,29 +272,29 @@ def fetch_bitlocker(token):
         )
         results = []
         for key in raw:
+            vol = key.get("volumeType", "")
             results.append({
-                "device":   key.get("deviceId", "")[:12] + "...",
-                "drive":    "C: (OS)" if key.get("volumeType") == "operatingSystemVolume" else "Data drive",
-                "method":   "XTS-AES 256",
-                "state":    "Fully Encrypted",
-                "key":      "Escrowed to AAD",
-                "tpm":      "Yes",
+                "device":  key.get("deviceId", "")[:13] + "...",
+                "drive":   "C: (OS)" if vol == "operatingSystemVolume" else "Data drive",
+                "method":  "XTS-AES 256",
+                "state":   "Fully Encrypted",
+                "key":     "Escrowed to AAD",
+                "tpm":     "Yes",
             })
         log(f"  → {len(results)} BitLocker recovery keys found.")
         return results
     except Exception as e:
-        log(f"  BitLocker fetch error (needs BitlockerKey.Read.All): {e}", "WARN")
+        log(f"  BitLocker skipped: {e}", "WARN")
         return []
 
 
 def fetch_firewall(token):
-    log("Fetching Endpoint security — Firewall policies...")
+    log("Fetching Firewall policies...")
     try:
         raw = graph_get(
             token,
             "deviceManagement/intents",
-            params={"$filter": "templateId eq '4356d05c-a4ab-4a07-9ece-739f7c792910'",
-                    "$select": "displayName,lastModifiedDateTime"},
+            params={"$select": "displayName,lastModifiedDateTime"},
         )
         results = []
         for p in raw:
@@ -302,10 +306,10 @@ def fetch_firewall(token):
                 "policy":   p.get("displayName", ""),
                 "lastSync": fmt_sync(p.get("lastModifiedDateTime")),
             })
-        log(f"  → {len(results)} firewall policy assignments.")
+        log(f"  → {len(results)} firewall/intent policies.")
         return results
     except Exception as e:
-        log(f"  Firewall fetch skipped: {e}", "WARN")
+        log(f"  Firewall skipped: {e}", "WARN")
         return []
 
 
@@ -336,23 +340,23 @@ def fetch_antivirus(token):
         log(f"  → {len(results)} antivirus records.")
         return results
     except Exception as e:
-        log(f"  Antivirus fetch skipped: {e}", "WARN")
+        log(f"  Antivirus skipped: {e}", "WARN")
         return []
 
 
 def fetch_autopatch(token):
-    log("Fetching Windows Autopatch deployment rings...")
+    log("Fetching Windows Autopatch deployments...")
     try:
         raw = graph_get(
             token,
             "windowsUpdates/deployments",
-            params={"$select": "content,state,lastModifiedDateTime,audience"},
+            params={"$select": "content,state,lastModifiedDateTime"},
         )
         results = []
         for d in raw:
             state = d.get("state", {}).get("effectiveValue", "Unknown")
             results.append({
-                "ring":       d.get("audience", {}).get("displayName", "Ring"),
+                "ring":       "Deployment ring",
                 "type":       "Quality Update",
                 "status":     state.capitalize(),
                 "kb":         d.get("content", {}).get("catalogEntry", {}).get("displayName", "—"),
@@ -362,11 +366,12 @@ def fetch_autopatch(token):
         log(f"  → {len(results)} Autopatch deployments.")
         return results
     except Exception as e:
-        log(f"  Autopatch fetch skipped (needs WindowsUpdates scope): {e}", "WARN")
+        log(f"  Autopatch skipped: {e}", "WARN")
         return []
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
+
 def main():
     log("=== Intune Device Health Console — Data Fetch Starting ===")
     token = get_token()
@@ -376,22 +381,22 @@ def main():
             "fetched_at": datetime.now(timezone.utc).isoformat(),
             "tenant_id":  TENANT_ID,
         },
-        "windows":      fetch_devices_by_platform(token, "Windows"),
-        "apple":        fetch_devices_by_platform(token, "iOS"),
-        "macos":        fetch_devices_by_platform(token, "macOS"),
-        "android":      fetch_devices_by_platform(token, "Android"),
-        "linux":        fetch_devices_by_platform(token, "Linux"),
-        "enrollment":   fetch_enrollment_profiles(token),
-        "configuration":fetch_configuration_profiles(token),
-        "compliance":   fetch_compliance_policies(token),
-        "allApps":      fetch_apps(token),
-        "winApps":      fetch_apps(token, "Windows"),
-        "iosApps":      fetch_apps(token, "Apple mobile"),
-        "androidApps":  fetch_apps(token, "Android"),
-        "bitlocker":    fetch_bitlocker(token),
-        "firewall":     fetch_firewall(token),
-        "antivirus":    fetch_antivirus(token),
-        "autopatch":    fetch_autopatch(token),
+        "windows":       fetch_devices_by_platform(token, "Windows"),
+        "apple":         fetch_devices_by_platform(token, "iOS"),
+        "macos":         fetch_devices_by_platform(token, "macOS"),
+        "android":       fetch_devices_by_platform(token, "Android"),
+        "linux":         fetch_devices_by_platform(token, "Linux"),
+        "enrollment":    fetch_enrollment_profiles(token),
+        "configuration": fetch_configuration_profiles(token),
+        "compliance":    fetch_compliance_policies(token),
+        "allApps":       fetch_apps(token),
+        "winApps":       fetch_apps(token, "Windows"),
+        "iosApps":       fetch_apps(token, "Apple mobile"),
+        "androidApps":   fetch_apps(token, "Android"),
+        "bitlocker":     fetch_bitlocker(token),
+        "firewall":      fetch_firewall(token),
+        "antivirus":     fetch_antivirus(token),
+        "autopatch":     fetch_autopatch(token),
     }
 
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
