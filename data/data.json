@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-05-26T08:47:40.905980+00:00",
+    "fetched_at": "2026-05-26T14:38:53.959910+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "23 min ago",
+      "lastSync": "1 hr ago",
       "enrolled": "2026-05-09"
     }
   ],
@@ -17,7 +17,16 @@
   "macos": [],
   "android": [],
   "linux": [],
-  "enrollment": [],
+  "enrollment": [
+    {
+      "name": "Windows_Autopilot",
+      "platform": "Windows",
+      "method": "Windows Autopilot",
+      "assigned": "Assigned devices",
+      "status": "Active",
+      "devices": 0
+    }
+  ],
   "configuration": [
     {
       "name": "Corp_Automation_Issueing-CA",
@@ -49,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "35 min ago"
+      "lastReport": "6 hr ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -57,10 +66,18 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "35 min ago"
+      "lastReport": "6 hr ago"
     }
   ],
-  "compliance": [],
+  "compliance": [
+    {
+      "policy": "DeviceManagement Compliance",
+      "setting": "Policy-level compliance",
+      "platform": "Windows",
+      "state": "Compliant",
+      "evaluated": "5 hr ago"
+    }
+  ],
   "allApps": [
     {
       "name": "Intune Company Portal",
