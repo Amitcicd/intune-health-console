@@ -1,22 +1,141 @@
 {
   "meta": {
-    "fetched_at": "pending",
-    "tenant_id": "pending — run the GitHub Action to populate real data"
+    "fetched_at": "2026-05-26T08:09:21.424650+00:00",
+    "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
-  "windows": [],
+  "windows": [
+    {
+      "name": "AM-FALLAHISLAM",
+      "user": "Amit@corpautomation.in",
+      "os": "10.0.26200.8390",
+      "compliance": "Compliant",
+      "lastSync": "4 day(s) ago",
+      "enrolled": "2026-05-09"
+    }
+  ],
   "apple": [],
   "macos": [],
   "android": [],
   "linux": [],
   "enrollment": [],
-  "configuration": [],
+  "configuration": [
+    {
+      "name": "Corp_Automation_Issueing-CA",
+      "platform": "Windows81trustedrootcertificate",
+      "type": "Device configuration",
+      "state": "Success",
+      "assigned": "See Intune portal",
+      "lastReport": "18 day(s) ago"
+    },
+    {
+      "name": "Corp_Automation_SCEP",
+      "platform": "Windows81scepcertificateprofile",
+      "type": "Device configuration",
+      "state": "Success",
+      "assigned": "See Intune portal",
+      "lastReport": "18 day(s) ago"
+    },
+    {
+      "name": "Python_Automation_Root-CA",
+      "platform": "Windows81trustedrootcertificate",
+      "type": "Device configuration",
+      "state": "Success",
+      "assigned": "See Intune portal",
+      "lastReport": "18 day(s) ago"
+    }
+  ],
   "compliance": [],
-  "allApps": [],
-  "winApps": [],
+  "allApps": [
+    {
+      "name": "Intune Company Portal",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    },
+    {
+      "name": "Managed Home Screen",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    },
+    {
+      "name": "Microsoft Authenticator",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    },
+    {
+      "name": "Microsoft Intune",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    }
+  ],
+  "winApps": [
+    {
+      "name": "Intune Company Portal",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    },
+    {
+      "name": "Managed Home Screen",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    },
+    {
+      "name": "Microsoft Authenticator",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    },
+    {
+      "name": "Microsoft Intune",
+      "platform": "Windows",
+      "type": "androidManagedStoreApp",
+      "state": "Published",
+      "ver": "2026-05-10"
+    }
+  ],
   "iosApps": [],
   "androidApps": [],
-  "bitlocker": [],
+  "bitlocker": [
+    {
+      "device": "18eaf118-bdcc...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    },
+    {
+      "device": "18eaf118-bdcc...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    }
+  ],
   "firewall": [],
-  "antivirus": [],
+  "antivirus": [
+    {
+      "device": "AM-FALLAHISLAM",
+      "platform": "Windows",
+      "engine": "Defender",
+      "status": "Disabled",
+      "sigDate": "",
+      "lastScan": "Never",
+      "threats": "0"
+    }
+  ],
   "autopatch": []
 }
