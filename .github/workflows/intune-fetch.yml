@@ -1,0 +1,69 @@
+name: Fetch Intune Data & Deploy Console
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"      # every 2 hours automatically
+  workflow_dispatch:             # manual run button in GitHub Actions tab
+
+permissions:
+  contents: write                # needed to commit data.json back to repo
+  pages: write                   # needed to deploy to GitHub Pages
+  id-token: write
+
+jobs:
+  # ── Job 1: Fetch data from Intune via Graph API ───────────────────────────
+  fetch-intune-data:
+    name: Fetch Intune Data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Intune data fetcher
+        env:
+          INTUNE_TENANT_ID:     ${{ secrets.INTUNE_TENANT_ID }}
+          INTUNE_CLIENT_ID:     ${{ secrets.INTUNE_CLIENT_ID }}
+          INTUNE_CLIENT_SECRET: ${{ secrets.INTUNE_CLIENT_SECRET }}
+        run: python scripts/fetch_all.py
+
+      - name: Commit updated data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/data.json
+          git diff --staged --quiet || git commit -m "chore: refresh Intune data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+          git push
+
+  # ── Job 2: Deploy HTML console to GitHub Pages ───────────────────────────
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: fetch-intune-data     # runs after data is refreshed
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main              # pull the freshly committed data.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."              # deploy entire repo root (index.html + data/)
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "fetched_at": "pending",
+    "tenant_id": "pending — run the GitHub Action to populate real data"
+  },
+  "windows": [],
+  "apple": [],
+  "macos": [],
+  "android": [],
+  "linux": [],
+  "enrollment": [],
+  "configuration": [],
+  "compliance": [],
+  "allApps": [],
+  "winApps": [],
+  "iosApps": [],
+  "androidApps": [],
+  "bitlocker": [],
+  "firewall": [],
+  "antivirus": [],
+  "autopatch": []
+}
