@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-05-27T07:55:39.749422+00:00",
+    "fetched_at": "2026-05-27T11:30:02.949820+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "10 hr ago",
+      "lastSync": "13 hr ago",
       "enrolled": "2026-05-09"
     }
   ],
@@ -58,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "23 hr ago"
+      "lastReport": "1 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "23 hr ago"
+      "lastReport": "1 day(s) ago"
     }
   ],
   "compliance": [
@@ -75,7 +75,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "22 hr ago"
+      "evaluated": "1 day(s) ago"
     }
   ],
   "allApps": [
@@ -106,6 +106,13 @@
       "type": "androidManagedStoreApp",
       "state": "Published",
       "ver": "2026-05-10"
+    },
+    {
+      "name": "Notepad++ 8.9.5",
+      "platform": "Windows",
+      "type": "win32LobApp",
+      "state": "Published",
+      "ver": "2026-05-27"
     }
   ],
   "winApps": [
@@ -136,6 +143,13 @@
       "type": "androidManagedStoreApp",
       "state": "Published",
       "ver": "2026-05-10"
+    },
+    {
+      "name": "Notepad++ 8.9.5",
+      "platform": "Windows",
+      "type": "win32LobApp",
+      "state": "Published",
+      "ver": "2026-05-27"
     }
   ],
   "iosApps": [],
