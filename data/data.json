@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-05-27T18:18:43.874922+00:00",
+    "fetched_at": "2026-05-27T21:45:17.313166+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "20 hr ago",
+      "lastSync": "1 day(s) ago",
       "enrolled": "2026-05-09"
     }
   ],
