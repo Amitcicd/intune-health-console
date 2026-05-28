@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-05-28T11:29:02.494600+00:00",
+    "fetched_at": "2026-05-28T15:25:29.624607+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -113,6 +113,13 @@
       "type": "win32LobApp",
       "state": "Published",
       "ver": "2026-05-27"
+    },
+    {
+      "name": "Notepad++ 8.9.5",
+      "platform": "Windows",
+      "type": "win32LobApp",
+      "state": "Published",
+      "ver": "2026-05-28"
     }
   ],
   "winApps": [
@@ -150,6 +157,13 @@
       "type": "win32LobApp",
       "state": "Published",
       "ver": "2026-05-27"
+    },
+    {
+      "name": "Notepad++ 8.9.5",
+      "platform": "Windows",
+      "type": "win32LobApp",
+      "state": "Published",
+      "ver": "2026-05-28"
     }
   ],
   "iosApps": [],
