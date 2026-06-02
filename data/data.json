@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-06-02T02:35:08.034256+00:00",
+    "fetched_at": "2026-06-02T08:19:32.394969+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "20 hr ago",
+      "lastSync": "1 day(s) ago",
       "enrolled": "2026-05-09"
     }
   ],
@@ -34,7 +34,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "24 day(s) ago"
+      "lastReport": "25 day(s) ago"
     },
     {
       "name": "Corp_Automation_SCEP",
@@ -42,7 +42,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "24 day(s) ago"
+      "lastReport": "25 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "24 day(s) ago"
+      "lastReport": "25 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Last",
@@ -58,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "6 day(s) ago"
+      "lastReport": "7 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "6 day(s) ago"
+      "lastReport": "7 day(s) ago"
     }
   ],
   "compliance": [
