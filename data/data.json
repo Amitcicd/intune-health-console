@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-06-03T08:46:33.841779+00:00",
+    "fetched_at": "2026-06-03T14:21:02.632820+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "12 hr ago",
+      "lastSync": "18 hr ago",
       "enrolled": "2026-05-09"
     }
   ],
@@ -75,7 +75,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "7 day(s) ago"
+      "evaluated": "8 day(s) ago"
     }
   ],
   "allApps": [
