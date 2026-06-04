@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-06-03T22:22:53.363079+00:00",
+    "fetched_at": "2026-06-04T02:37:03.316127+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -11,6 +11,14 @@
       "compliance": "Compliant",
       "lastSync": "1 day(s) ago",
       "enrolled": "2026-05-09"
+    },
+    {
+      "name": "WIN-PC1",
+      "user": "sagaransal@corpautomation.in",
+      "os": "10.0.26200.6584",
+      "compliance": "Compliant",
+      "lastSync": "15 min ago",
+      "enrolled": "2026-06-04"
     }
   ],
   "apple": [],
@@ -170,6 +178,22 @@
   "androidApps": [],
   "bitlocker": [
     {
+      "device": "dff49ffe-7e6a...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    },
+    {
+      "device": "dff49ffe-7e6a...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    },
+    {
       "device": "18eaf118-bdcc...",
       "drive": "Data drive",
       "method": "XTS-AES 256",
@@ -190,6 +214,15 @@
   "antivirus": [
     {
       "device": "AM-GITBASH001",
+      "platform": "Windows",
+      "engine": "Defender",
+      "status": "Disabled",
+      "sigDate": "",
+      "lastScan": "Never",
+      "threats": "0"
+    },
+    {
+      "device": "WIN-PC1",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
