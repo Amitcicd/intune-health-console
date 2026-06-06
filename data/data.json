@@ -1,17 +1,9 @@
 {
   "meta": {
-    "fetched_at": "2026-06-06T16:58:05.756104+00:00",
+    "fetched_at": "2026-06-06T19:03:26.540501+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
-    {
-      "name": "AM-GITBASH001",
-      "user": "Amit@corpautomation.in",
-      "os": "10.0.26200.8390",
-      "compliance": "Compliant",
-      "lastSync": "3 day(s) ago",
-      "enrolled": "2026-05-09"
-    },
     {
       "name": "WIN-PC1",
       "user": "sagaransal@corpautomation.in",
@@ -19,6 +11,14 @@
       "compliance": "Compliant",
       "lastSync": "2 day(s) ago",
       "enrolled": "2026-06-04"
+    },
+    {
+      "name": "AM-GITBASH001",
+      "user": "Amit@corpautomation.in",
+      "os": "10.0.26200.8390",
+      "compliance": "Compliant",
+      "lastSync": "3 day(s) ago",
+      "enrolled": "2026-05-09"
     }
   ],
   "apple": [],
@@ -213,7 +213,7 @@
   "firewall": [],
   "antivirus": [
     {
-      "device": "AM-GITBASH001",
+      "device": "WIN-PC1",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
@@ -222,7 +222,7 @@
       "threats": "0"
     },
     {
-      "device": "WIN-PC1",
+      "device": "AM-GITBASH001",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
