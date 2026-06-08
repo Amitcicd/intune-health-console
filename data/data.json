@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-06-08T13:58:06.655342+00:00",
+    "fetched_at": "2026-06-08T17:21:41.776507+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -17,7 +17,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "18 hr ago",
+      "lastSync": "22 hr ago",
       "enrolled": "2026-05-09"
     }
   ],
@@ -213,7 +213,7 @@
   "firewall": [],
   "antivirus": [
     {
-      "device": "AM-GITBASH001",
+      "device": "WIN-PC1",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
@@ -222,7 +222,7 @@
       "threats": "0"
     },
     {
-      "device": "WIN-PC1",
+      "device": "AM-GITBASH001",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
