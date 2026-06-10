@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-06-10T07:59:38.791925+00:00",
+    "fetched_at": "2026-06-10T11:39:48.104514+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "14 day(s) ago"
+      "lastReport": "15 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -74,7 +74,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "14 day(s) ago"
+      "lastReport": "15 day(s) ago"
     }
   ],
   "compliance": [
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "14 day(s) ago"
+      "evaluated": "15 day(s) ago"
     }
   ],
   "allApps": [
