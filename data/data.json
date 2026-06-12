@@ -1,9 +1,17 @@
 {
   "meta": {
-    "fetched_at": "2026-06-12T12:48:56.627482+00:00",
+    "fetched_at": "2026-06-12T16:38:06.150113+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
+    {
+      "name": "WIN-PC1",
+      "user": "",
+      "os": "10.0.26200.6584",
+      "compliance": "Compliant",
+      "lastSync": "4 hr ago",
+      "enrolled": "2026-06-04"
+    },
     {
       "name": "AM-GITBASH001",
       "user": "Amit@corpautomation.in",
@@ -11,14 +19,6 @@
       "compliance": "Compliant",
       "lastSync": "4 day(s) ago",
       "enrolled": "2026-05-09"
-    },
-    {
-      "name": "WIN-PC1",
-      "user": "sagaransal@corpautomation.in",
-      "os": "10.0.26200.6584",
-      "compliance": "Compliant",
-      "lastSync": "22 min ago",
-      "enrolled": "2026-06-04"
     }
   ],
   "apple": [],
@@ -177,14 +177,6 @@
   "iosApps": [],
   "androidApps": [],
   "bitlocker": [
-    {
-      "device": "dff49ffe-7e6a...",
-      "drive": "Data drive",
-      "method": "XTS-AES 256",
-      "state": "Fully Encrypted",
-      "key": "Escrowed to AAD",
-      "tpm": "Yes"
-    },
     {
       "device": "dff49ffe-7e6a...",
       "drive": "Data drive",
