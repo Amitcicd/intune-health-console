@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-06-17T08:52:51.617850+00:00",
+    "fetched_at": "2026-06-17T13:35:49.732904+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "",
       "os": "10.0.26200.6584",
       "compliance": "Compliant",
-      "lastSync": "4 day(s) ago",
+      "lastSync": "5 day(s) ago",
       "enrolled": "2026-06-04"
     },
     {
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "21 day(s) ago"
+      "evaluated": "22 day(s) ago"
     }
   ],
   "allApps": [
