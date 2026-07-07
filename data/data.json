@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-07-07T06:10:06.382121+00:00",
+    "fetched_at": "2026-07-07T10:44:22.554308+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -9,7 +9,7 @@
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
       "compliance": "Compliant",
-      "lastSync": "4 hr ago",
+      "lastSync": "9 hr ago",
       "enrolled": "2026-05-09"
     },
     {
@@ -42,7 +42,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "59 day(s) ago"
+      "lastReport": "60 day(s) ago"
     },
     {
       "name": "Corp_Automation_SCEP",
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "59 day(s) ago"
+      "lastReport": "60 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -58,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "59 day(s) ago"
+      "lastReport": "60 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Last",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "41 day(s) ago"
+      "lastReport": "42 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -74,7 +74,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "41 day(s) ago"
+      "lastReport": "42 day(s) ago"
     }
   ],
   "compliance": [
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "41 day(s) ago"
+      "evaluated": "42 day(s) ago"
     }
   ],
   "allApps": [
@@ -205,7 +205,7 @@
   "firewall": [],
   "antivirus": [
     {
-      "device": "AM-GITBASH001",
+      "device": "WIN-PC1",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
@@ -214,7 +214,7 @@
       "threats": "0"
     },
     {
-      "device": "WIN-PC1",
+      "device": "AM-GITBASH001",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
