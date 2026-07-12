@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-07-12T16:44:07.974955+00:00",
+    "fetched_at": "2026-07-12T18:48:17.295901+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -16,7 +16,7 @@
       "name": "WIN-PC1",
       "user": "",
       "os": "10.0.26200.6584",
-      "compliance": "Compliant",
+      "compliance": "Non-Compliant",
       "lastSync": "30 day(s) ago",
       "enrolled": "2026-06-04"
     }
