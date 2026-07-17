@@ -1,9 +1,17 @@
 {
   "meta": {
-    "fetched_at": "2026-07-17T11:13:24.378826+00:00",
+    "fetched_at": "2026-07-17T13:01:27.407614+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
+    {
+      "name": "WIN-PC1",
+      "user": "",
+      "os": "10.0.26200.6584",
+      "compliance": "Non-Compliant",
+      "lastSync": "35 day(s) ago",
+      "enrolled": "2026-06-04"
+    },
     {
       "name": "AM-GITBASH001",
       "user": "Amit@corpautomation.in",
@@ -11,14 +19,6 @@
       "compliance": "Compliant",
       "lastSync": "10 day(s) ago",
       "enrolled": "2026-05-09"
-    },
-    {
-      "name": "WIN-PC1",
-      "user": "",
-      "os": "10.0.26200.6584",
-      "compliance": "Non-Compliant",
-      "lastSync": "34 day(s) ago",
-      "enrolled": "2026-06-04"
     }
   ],
   "apple": [],
