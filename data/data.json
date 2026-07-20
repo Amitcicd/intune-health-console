@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-07-20T12:07:57.643507+00:00",
+    "fetched_at": "2026-07-20T15:43:55.633684+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -17,7 +17,7 @@
       "user": "",
       "os": "10.0.26200.6584",
       "compliance": "Non-Compliant",
-      "lastSync": "37 day(s) ago",
+      "lastSync": "38 day(s) ago",
       "enrolled": "2026-06-04"
     }
   ],
@@ -176,11 +176,36 @@
   ],
   "iosApps": [],
   "androidApps": [],
-  "bitlocker": [],
+  "bitlocker": [
+    {
+      "device": "dff49ffe-7e6a...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    },
+    {
+      "device": "18eaf118-bdcc...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    },
+    {
+      "device": "18eaf118-bdcc...",
+      "drive": "Data drive",
+      "method": "XTS-AES 256",
+      "state": "Fully Encrypted",
+      "key": "Escrowed to AAD",
+      "tpm": "Yes"
+    }
+  ],
   "firewall": [],
   "antivirus": [
     {
-      "device": "AM-GITBASH001",
+      "device": "WIN-PC1",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
@@ -189,7 +214,7 @@
       "threats": "0"
     },
     {
-      "device": "WIN-PC1",
+      "device": "AM-GITBASH001",
       "platform": "Windows",
       "engine": "Defender",
       "status": "Disabled",
