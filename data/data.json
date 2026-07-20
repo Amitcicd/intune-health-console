@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-07-20T08:36:55.721917+00:00",
+    "fetched_at": "2026-07-20T12:07:57.643507+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "54 day(s) ago"
+      "evaluated": "55 day(s) ago"
     }
   ],
   "allApps": [
@@ -176,32 +176,7 @@
   ],
   "iosApps": [],
   "androidApps": [],
-  "bitlocker": [
-    {
-      "device": "dff49ffe-7e6a...",
-      "drive": "Data drive",
-      "method": "XTS-AES 256",
-      "state": "Fully Encrypted",
-      "key": "Escrowed to AAD",
-      "tpm": "Yes"
-    },
-    {
-      "device": "18eaf118-bdcc...",
-      "drive": "Data drive",
-      "method": "XTS-AES 256",
-      "state": "Fully Encrypted",
-      "key": "Escrowed to AAD",
-      "tpm": "Yes"
-    },
-    {
-      "device": "18eaf118-bdcc...",
-      "drive": "Data drive",
-      "method": "XTS-AES 256",
-      "state": "Fully Encrypted",
-      "key": "Escrowed to AAD",
-      "tpm": "Yes"
-    }
-  ],
+  "bitlocker": [],
   "firewall": [],
   "antivirus": [
     {
