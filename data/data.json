@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-07-24T04:59:32.849828+00:00",
+    "fetched_at": "2026-07-24T08:05:20.271082+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -42,7 +42,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "76 day(s) ago"
+      "lastReport": "77 day(s) ago"
     },
     {
       "name": "Corp_Automation_SCEP",
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "76 day(s) ago"
+      "lastReport": "77 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -58,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "76 day(s) ago"
+      "lastReport": "77 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Last",
