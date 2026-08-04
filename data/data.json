@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-08-04T04:53:25.214755+00:00",
+    "fetched_at": "2026-08-04T08:16:24.654644+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -42,7 +42,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "87 day(s) ago"
+      "lastReport": "88 day(s) ago"
     },
     {
       "name": "Corp_Automation_SCEP",
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "87 day(s) ago"
+      "lastReport": "88 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -58,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "87 day(s) ago"
+      "lastReport": "88 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Last",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "69 day(s) ago"
+      "lastReport": "70 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -74,7 +74,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "69 day(s) ago"
+      "lastReport": "70 day(s) ago"
     }
   ],
   "compliance": [
