@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-08-06T01:25:14.004485+00:00",
+    "fetched_at": "2026-08-06T04:54:03.416463+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -8,7 +8,7 @@
       "name": "AM-GITBASH001",
       "user": "Amit@corpautomation.in",
       "os": "10.0.26200.8390",
-      "compliance": "Compliant",
+      "compliance": "Non-Compliant",
       "lastSync": "30 day(s) ago",
       "enrolled": "2026-05-09"
     },
