@@ -1,17 +1,9 @@
 {
   "meta": {
-    "fetched_at": "2026-08-14T08:56:51.576302+00:00",
+    "fetched_at": "2026-08-14T10:47:31.007542+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
-    {
-      "name": "WIN-PC1",
-      "user": "",
-      "os": "10.0.26200.6584",
-      "compliance": "Non-Compliant",
-      "lastSync": "62 day(s) ago",
-      "enrolled": "2026-06-04"
-    },
     {
       "name": "AM-GITBASH001",
       "user": "Amit@corpautomation.in",
@@ -19,6 +11,14 @@
       "compliance": "Non-Compliant",
       "lastSync": "38 day(s) ago",
       "enrolled": "2026-05-09"
+    },
+    {
+      "name": "WIN-PC1",
+      "user": "",
+      "os": "10.0.26200.6584",
+      "compliance": "Non-Compliant",
+      "lastSync": "62 day(s) ago",
+      "enrolled": "2026-06-04"
     }
   ],
   "apple": [],
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "79 day(s) ago"
+      "evaluated": "80 day(s) ago"
     }
   ],
   "allApps": [
