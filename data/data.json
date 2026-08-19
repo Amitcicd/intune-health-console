@@ -1,17 +1,9 @@
 {
   "meta": {
-    "fetched_at": "2026-08-19T06:24:08.264633+00:00",
+    "fetched_at": "2026-08-19T08:22:26.756707+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
-    {
-      "name": "WIN-PC1",
-      "user": "",
-      "os": "10.0.26200.6584",
-      "compliance": "Non-Compliant",
-      "lastSync": "67 day(s) ago",
-      "enrolled": "2026-06-04"
-    },
     {
       "name": "AM-GITBASH001",
       "user": "Amit@corpautomation.in",
@@ -19,6 +11,14 @@
       "compliance": "Non-Compliant",
       "lastSync": "43 day(s) ago",
       "enrolled": "2026-05-09"
+    },
+    {
+      "name": "WIN-PC1",
+      "user": "",
+      "os": "10.0.26200.6584",
+      "compliance": "Non-Compliant",
+      "lastSync": "67 day(s) ago",
+      "enrolled": "2026-06-04"
     }
   ],
   "apple": [],
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "102 day(s) ago"
+      "lastReport": "103 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "84 day(s) ago"
+      "lastReport": "85 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -74,7 +74,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "84 day(s) ago"
+      "lastReport": "85 day(s) ago"
     }
   ],
   "compliance": [
