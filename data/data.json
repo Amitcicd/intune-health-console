@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-08-20T06:25:04.185056+00:00",
+    "fetched_at": "2026-08-20T08:23:35.436417+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "103 day(s) ago"
+      "lastReport": "104 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "85 day(s) ago"
+      "lastReport": "86 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -74,7 +74,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "85 day(s) ago"
+      "lastReport": "86 day(s) ago"
     }
   ],
   "compliance": [
