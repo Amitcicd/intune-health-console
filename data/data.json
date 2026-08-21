@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-08-21T12:22:56.104453+00:00",
+    "fetched_at": "2026-08-21T14:23:00.688716+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -17,7 +17,7 @@
       "user": "",
       "os": "10.0.26200.6584",
       "compliance": "Non-Compliant",
-      "lastSync": "69 day(s) ago",
+      "lastSync": "70 day(s) ago",
       "enrolled": "2026-06-04"
     }
   ],
