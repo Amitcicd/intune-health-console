@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetched_at": "2026-08-26T08:29:24.297799+00:00",
+    "fetched_at": "2026-08-26T10:23:03.132477+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "91 day(s) ago"
+      "evaluated": "92 day(s) ago"
     }
   ],
   "allApps": [
