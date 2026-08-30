@@ -1,17 +1,9 @@
 {
   "meta": {
-    "fetched_at": "2026-08-30T02:14:26.136176+00:00",
+    "fetched_at": "2026-08-30T09:32:46.830445+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
   "windows": [
-    {
-      "name": "AM-GITBASH001",
-      "user": "Amit@corpautomation.in",
-      "os": "10.0.26200.8390",
-      "compliance": "Non-Compliant",
-      "lastSync": "54 day(s) ago",
-      "enrolled": "2026-05-09"
-    },
     {
       "name": "WIN-PC1",
       "user": "",
@@ -19,6 +11,14 @@
       "compliance": "Non-Compliant",
       "lastSync": "78 day(s) ago",
       "enrolled": "2026-06-04"
+    },
+    {
+      "name": "AM-GITBASH001",
+      "user": "Amit@corpautomation.in",
+      "os": "10.0.26200.8390",
+      "compliance": "Non-Compliant",
+      "lastSync": "54 day(s) ago",
+      "enrolled": "2026-05-09"
     }
   ],
   "apple": [],
@@ -42,7 +42,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "113 day(s) ago"
+      "lastReport": "114 day(s) ago"
     },
     {
       "name": "Corp_Automation_SCEP",
@@ -50,7 +50,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "113 day(s) ago"
+      "lastReport": "114 day(s) ago"
     },
     {
       "name": "Python_Automation_Root-CA",
@@ -58,7 +58,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "113 day(s) ago"
+      "lastReport": "114 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Last",
@@ -66,7 +66,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "95 day(s) ago"
+      "lastReport": "96 day(s) ago"
     },
     {
       "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
@@ -74,7 +74,7 @@
       "type": "Device configuration",
       "state": "Success",
       "assigned": "See Intune portal",
-      "lastReport": "95 day(s) ago"
+      "lastReport": "96 day(s) ago"
     }
   ],
   "compliance": [
@@ -83,7 +83,7 @@
       "setting": "Policy-level compliance",
       "platform": "Windows",
       "state": "Compliant",
-      "evaluated": "95 day(s) ago"
+      "evaluated": "96 day(s) ago"
     }
   ],
   "allApps": [
