@@ -1,179 +1,18 @@
 {
   "meta": {
-    "fetched_at": "2026-09-04T06:41:18.958713+00:00",
+    "fetched_at": "2026-09-04T12:20:01.333852+00:00",
     "tenant_id": "78ca8843-c58b-4aca-824a-9d987a027867"
   },
-  "windows": [
-    {
-      "name": "AM-GITBASH001",
-      "user": "Amit@corpautomation.in",
-      "os": "10.0.26200.8390",
-      "compliance": "Non-Compliant",
-      "lastSync": "59 day(s) ago",
-      "enrolled": "2026-05-09"
-    },
-    {
-      "name": "WIN-PC1",
-      "user": "",
-      "os": "10.0.26200.6584",
-      "compliance": "Non-Compliant",
-      "lastSync": "83 day(s) ago",
-      "enrolled": "2026-06-04"
-    }
-  ],
+  "windows": [],
   "apple": [],
   "macos": [],
   "android": [],
   "linux": [],
-  "enrollment": [
-    {
-      "name": "Windows_Autopilot",
-      "platform": "Windows",
-      "method": "Windows Autopilot",
-      "assigned": "Assigned devices",
-      "status": "Active",
-      "devices": 0
-    }
-  ],
-  "configuration": [
-    {
-      "name": "Corp_Automation_Issueing-CA",
-      "platform": "Windows81trustedrootcertificate",
-      "type": "Device configuration",
-      "state": "Success",
-      "assigned": "See Intune portal",
-      "lastReport": "119 day(s) ago"
-    },
-    {
-      "name": "Corp_Automation_SCEP",
-      "platform": "Windows81scepcertificateprofile",
-      "type": "Device configuration",
-      "state": "Success",
-      "assigned": "See Intune portal",
-      "lastReport": "119 day(s) ago"
-    },
-    {
-      "name": "Python_Automation_Root-CA",
-      "platform": "Windows81trustedrootcertificate",
-      "type": "Device configuration",
-      "state": "Success",
-      "assigned": "See Intune portal",
-      "lastReport": "119 day(s) ago"
-    },
-    {
-      "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Last",
-      "platform": "Windowsupdateforbusiness",
-      "type": "Device configuration",
-      "state": "Success",
-      "assigned": "See Intune portal",
-      "lastReport": "100 day(s) ago"
-    },
-    {
-      "name": "Windows Autopatch Update Policy - Windows_Autopatch_Update_Automation - Test",
-      "platform": "Windowsupdateforbusiness",
-      "type": "Device configuration",
-      "state": "Success",
-      "assigned": "See Intune portal",
-      "lastReport": "100 day(s) ago"
-    }
-  ],
-  "compliance": [
-    {
-      "policy": "DeviceManagement Compliance",
-      "setting": "Policy-level compliance",
-      "platform": "Windows",
-      "state": "Compliant",
-      "evaluated": "100 day(s) ago"
-    }
-  ],
-  "allApps": [
-    {
-      "name": "Intune Company Portal",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Managed Home Screen",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Microsoft Authenticator",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Microsoft Intune",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Notepad++ 8.9.5",
-      "platform": "Windows",
-      "type": "win32LobApp",
-      "state": "Published",
-      "ver": "2026-05-27"
-    },
-    {
-      "name": "Notepad++ 8.9.5",
-      "platform": "Windows",
-      "type": "win32LobApp",
-      "state": "Published",
-      "ver": "2026-05-28"
-    }
-  ],
-  "winApps": [
-    {
-      "name": "Intune Company Portal",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Managed Home Screen",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Microsoft Authenticator",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Microsoft Intune",
-      "platform": "Windows",
-      "type": "androidManagedStoreApp",
-      "state": "Published",
-      "ver": "2026-05-10"
-    },
-    {
-      "name": "Notepad++ 8.9.5",
-      "platform": "Windows",
-      "type": "win32LobApp",
-      "state": "Published",
-      "ver": "2026-05-27"
-    },
-    {
-      "name": "Notepad++ 8.9.5",
-      "platform": "Windows",
-      "type": "win32LobApp",
-      "state": "Published",
-      "ver": "2026-05-28"
-    }
-  ],
+  "enrollment": [],
+  "configuration": [],
+  "compliance": [],
+  "allApps": [],
+  "winApps": [],
   "iosApps": [],
   "androidApps": [],
   "bitlocker": [
@@ -203,25 +42,6 @@
     }
   ],
   "firewall": [],
-  "antivirus": [
-    {
-      "device": "AM-GITBASH001",
-      "platform": "Windows",
-      "engine": "Defender",
-      "status": "Disabled",
-      "sigDate": "",
-      "lastScan": "Never",
-      "threats": "0"
-    },
-    {
-      "device": "WIN-PC1",
-      "platform": "Windows",
-      "engine": "Defender",
-      "status": "Disabled",
-      "sigDate": "",
-      "lastScan": "Never",
-      "threats": "0"
-    }
-  ],
+  "antivirus": [],
   "autopatch": []
 }
